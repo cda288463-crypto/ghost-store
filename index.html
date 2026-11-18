@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ghost Store</title>
+  <script src="https://telegram.org"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+    body { background: #020806; color: #00ff41; padding: 15px; overflow-x: hidden; }
+    canvas#matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.22; }
+    .terminal-bar { font-size: 11px; border-bottom: 1px dashed #008f11; padding-bottom: 6px; margin-bottom: 14px; display: flex; justify-content: space-between; }
+    .hero { border: 1px solid #00ff41; background: rgba(0, 20, 10, 0.85); border-radius: 10px; padding: 18px 12px; text-align: center; margin-bottom: 16px; box-shadow: 0 0 15px rgba(0, 255, 65, 0.25); }
+    .glitch { font-size: 26px; font-weight: bold; letter-spacing: 3px; color: #fff; text-shadow: 2px 0 #00ff41, -2px 0 #008f11; }
+    .search-wrap input { width: 100%; padding: 12px; background: rgba(0, 15, 8, 0.9); border: 1px solid #00ff41; border-radius: 6px; color: #00ff41; font-size: 14px; margin-bottom: 16px; outline: none; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card { background: rgba(3, 18, 11, 0.9); border: 1px solid #006622; border-radius: 10px; padding: 14px 10px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+    .tag-row { display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 10px; }
+    .tag { background: rgba(0, 255, 65, 0.15); border: 1px solid #00ff41; padding: 2px 6px; border-radius: 4px; }
+    .icon-box { width: 45px; height: 45px; margin: 0 auto 10px; border: 1px solid #00ff41; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; background: rgba(0, 255, 65, 0.1); }
+    .card h3 { font-size: 14px; color: #fff; margin-bottom: 6px; }
+    .stats { font-size: 11px; color: #55aa77; margin-bottom: 12px; }
+    .dl-btn { display: block; padding: 8px; border: 1px solid #00ff41; color: #00ff41; text-decoration: none; font-size: 11px; font-weight: bold; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+  <div class="terminal-bar"><span>root@ghoststore:~# ONLINE</span><span>V1.0</span></div>
+  <div class="hero">
+    <div class="glitch">GHOST STORE</div>
+    <div style="font-size:11px; margin-top:5px;">[ CYBER UTILITY &amp; APP HUB ]</div>
+  </div>
+  <div class="search-wrap"><input type="text" id="searchInput" onkeyup="filterApps()" placeholder="> Search apps..."></div>
+  <div class="grid">
+    <div class="card">
+      <div><div class="tag-row"><span>#01</span><span class="tag">LIVE</span></div><div class="icon-box">TM</div><h3>Temp Mail Tool</h3><div class="stats">Web Utility</div></div>
+      <a href="https://temp-mail.org" class="dl-btn">[ OPEN ]</a>
+    </div>
+    <div class="card">
+      <div><div class="tag-row"><span>#02</span><span class="tag">LIVE</span></div><div class="icon-box">VS</div><h3>Virus Scanner</h3><div class="stats">Security Tool</div></div>
+      <a href="https://virustotal.com" class="dl-btn">[ OPEN ]</a>
+    </div>
+    <div class="card">
+      <div><div class="tag-row"><span>#03</span><span class="tag">SOON</span></div><div class="icon-box">GS</div><h3>App Slot #3</h3><div class="stats">Coming Soon</div></div>
+      <a href="#" onclick="alert('New app coming soon!')" class="dl-btn">[ LOCKED ]</a>
+    </div>
+    <div class="card">
+      <div><div class="tag-row"><span>#04</span><span class="tag">SOON</span></div><div class="icon-box">GS</div><h3>App Slot #4</h3><div class="stats">Coming Soon</div></div>
+      <a href="#" onclick="alert('New app coming soon!')" class="dl-btn">[ LOCKED ]</a>
+    </div>
+  </div>
+  <script>
+    window.Telegram.WebApp.expand();
+    const c = document.getElementById('matrix'), ctx = c.getContext('2d');
+    c.width = window.innerWidth; c.height = window.innerHeight;
+    const drops = Array(Math.floor(c.width / 12)).fill(1);
+    setInterval(() => {
+      ctx.fillStyle = 'rgba(2, 8, 6, 0.08)'; ctx.fillRect(0, 0, c.width, c.height);
+      ctx.fillStyle = '#00ff41'; ctx.font = '12px monospace';
+      drops.forEach((y, i) => {
+        ctx.fillText(Math.random() > 0.5 ? '1' : '0', i * 12, y * 12);
+        if (y * 12 > c.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      });
+    }, 45);
+    function filterApps() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.getElementsByClassName('card');
+      for (let card of cards) {
+        card.style.display = card.getElementsByTagName('h3').innerText.toLowerCase().includes(input) ? "" : "none";
+      }
+    }
+  </script>
+</body>
+</html>
