@@ -1,15 +1,21 @@
-{
+ {
   "name": "Ghost FF Panel UI",
   "short_name": "FF Panel",
-  "start_url": "app-ui.html",
+  "start_url": "https://github.io",
+  "scope": "https://github.io",
   "display": "standalone",
   "background_color": "#050b14",
   "theme_color": "#00ff66",
   "icons": [
     {
-      "src": "https://flaticon.com",
+      "src": "https://placeholder.com",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://placeholder.com",
       "sizes": "512x512",
       "type": "image/png"
     }
   ]
-}
+ }
