@@ -55,7 +55,7 @@
      <h3>Ghost Store APK</h3>
      <div class="stats">Android App</div>
    </div>
-   <a href="GhostStore.apk" download="GhostStore.apk" class="dl-btn">[ DOWNLOAD ]</a>
+   <a href="GhostStore.apk" onclick="event.preventDefault(); const u = new URL('GhostStore.apk', window.location.href).href; if(window.Telegram && window.Telegram.WebApp){ Telegram.WebApp.openLink(u); } else { window.open(u, '_blank'); }" class="dl-btn">[ DOWNLOAD ]</a>
   </div>
     </div>
   </div>
