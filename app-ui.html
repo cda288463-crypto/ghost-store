@@ -1,1 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FF Panel Pro</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+    body { background: #040810; color: #fff; padding: 16px; }
+    .header {
+      background: linear-gradient(90deg, #0b192c, #112240);
+      border: 1.5px solid #00e5ff; border-radius: 12px; padding: 14px;
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+    }
+    .header h3 { color: #00e5ff; font-size: 16px; }
+    .status { font-size: 10px; background: #00ff66; color: #000; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
+    .section-title { font-size: 11px; color: #ffd700; letter-spacing: 1px; margin: 12px 0 8px; }
+    .feature {
+      background: #091322; border: 1px solid #1e3a5f; border-radius: 10px;
+      padding: 12px 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .feature span { font-size: 13px; font-weight: bold; }
+    .switch { position: relative; width: 44px; height: 22px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #1e293b; transition: .3s; border-radius: 22px;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+      background-color: white; transition: .3s; border-radius: 50%;
+    }
+    input:checked + .slider { background-color: #00ff66; box-shadow: 0 0 10px #00ff66; }
+    input:checked + .slider:before { transform: translateX(22px); background-color: #000; }
+    .slider-box { background: #091322; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px; margin-bottom: 14px; }
+    .slider-box input { width: 100%; margin-top: 8px; accent-color: #00e5ff; }
+    .launch-btn {
+      width: 100%; padding: 15px; background: linear-gradient(90deg, #ff0055, #ff5500);
+      border: none; border-radius: 10px; color: #fff; font-weight: 900; font-size: 15px;
+      letter-spacing: 1px; cursor: pointer; margin-top: 8px;
+    }
+    .credit { text-align: center; font-size: 11px; color: #64748b; margin-top: 18px; }
+  </style>
+</head>
+<body>
 
+  <div class="header">
+    <div>
+      <h3 id="appHeader">ABCD PANEL</h3>
+      <div style="font-size:10px; color:#94a3b8;">DEV: RAFSAN // VIP EDITION</div>
+    </div>
+    <span class="status">CONNECTED</span>
+  </div>
+
+  <div class="section-title">[ AIM &amp; SENSITIVITY VISUALS ]</div>
+  <div class="feature"><span>Aimbot Assist UI</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+  <div class="feature"><span>No Recoil HUD</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+  <div class="feature"><span>Headshot Crosshair</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+
+  <div class="slider-box">
+    <div style="display:flex; justify-content:space-between; font-size:12px;">
+      <span>DPI / Sensitivity Scale</span><span id="dpiVal" style="color:#00e5ff;">120%</span>
+    </div>
+    <input type="range" min="50" max="200" value="120" oninput="document.getElementById('dpiVal').innerText = this.value + '%'">
+  </div>
+
+  <div class="section-title">[ PERFORMANCE &amp; ESP HUD ]</div>
+  <div class="feature"><span>120 FPS Unlocker UI</span><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></div>
+  <div class="feature"><span>ESP Line Overlay</span><label class="switch"><input type="checkbox"><span class="slider"></span></label></div>
+
+  <button class="launch-btn" onclick="alert('✔ Panel Visual Overlay Activated! (Demo Mode by RAFSAN)')">INJECT &amp; START GAME</button>
+
+  <div class="credit">POWERED BY GHOST STORE // RAFSAN</div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('panel')) {
+      document.getElementById('appHeader').innerText = params.get('panel');
+    }
+  </script>
+</body>
+                       </html>
