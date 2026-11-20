@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Ready // Install Panel</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+    body {
+      background: #050b14; color: #e2e8f0; display: flex; flex-direction: column;
+      justify-content: space-between; min-height: 100vh; padding: 20px;
+    }
+    .card {
+      background: #09121e; border: 1.5px solid #00ff66; border-radius: 16px;
+      padding: 20px; text-align: center; box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
+    }
+    .app-icon {
+      width: 75px; height: 75px; margin: 0 auto 14px; border-radius: 18px;
+      border: 2px solid #00e5ff; background: #102a43; display: flex;
+      align-items: center; justify-content: center; font-size: 28px;
+      box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+    }
+    h2 { color: #00ff66; font-size: 20px; margin-bottom: 6px; }
+    .meta { font-size: 12px; color: #94a3b8; margin-bottom: 18px; }
+    .specs {
+      text-align: left; background: #050a12; border: 1px solid #1e293b;
+      padding: 14px; border-radius: 10px; font-size: 12px; line-height: 1.8;
+    }
+    .specs span { color: #00e5ff; font-weight: bold; }
+    .bottom-area { margin-top: 20px; }
+    .install-btn {
+      width: 100%; padding: 16px; background: linear-gradient(90deg, #00c853, #00ff66);
+      border: none; border-radius: 12px; color: #021208; font-size: 16px;
+      font-weight: 900; letter-spacing: 1.5px; cursor: pointer;
+      box-shadow: 0 0 20px rgba(0, 255, 102, 0.45);
+    }
+    .note { font-size: 11px; color: #64748b; text-align: center; margin-top: 10px; }
+  </style>
+</head>
+<body>
 
+  <div class="card">
+    <div class="app-icon">🎮</div>
+    <h2 id="panelTitle">ABCD PANEL PRO</h2>
+    <div class="meta">Version 4.2 // Build by RAFSAN</div>
+
+    <div class="specs">
+      <div>• Package: <span>com.rafsan.panel.ui</span></div>
+      <div>• Architecture: <span>ARM64 / Universal</span></div>
+      <div>• Status: <span style="color:#00ff66;">Verified Clean Build</span></div>
+      <div>• Key Required: <span>RAFSAN-VIP-2026</span></div>
+    </div>
+  </div>
+
+  <div class="bottom-area">
+    <button class="install-btn" id="installBtn" onclick="installApp()">⬇ INSTALL APP</button>
+    <div class="note" id="installHint">Tap Install to add this Panel App to your Home Screen</div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const pName = params.get('panel') || 'ABCD PANEL';
+    document.getElementById('panelTitle').innerText = pName;
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    async function installApp() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          document.getElementById('installHint').innerText = "✔ Installing Panel App to Home Screen...";
+        }
+        deferredPrompt = null;
+      } else {
+        // ব্রাউজার সরাসরি ইনস্টল সাপোর্ট না করলে বা টেলিগ্রাম ইন-অ্যাপ ব্রাউজারে থাকলে
+        alert("অ্যাপটি ইনস্টল করতে Chrome ব্রাউজারের উপরে ডানপাশের তিনটি ডট (⋮) মেনুতে ক্লিক করে 'Add to Home screen' বা 'Install app' সিলেক্ট করুন।");
+        window.location.href = "app-ui.html?panel=" + encodeURIComponent(pName);
+      }
+    }
+  </script>
+</body>
+  </html>
