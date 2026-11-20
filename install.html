@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build Ready // Install Panel</title>
-  <link rel="manifest" href="manifest.json">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
     body {
@@ -54,8 +53,8 @@
   </div>
 
   <div class="bottom-area">
-    <button class="install-btn" id="installBtn" onclick="installApp()">⬇ INSTALL APP</button>
-    <div class="note" id="installHint">Tap Install to add this Panel App to your Home Screen</div>
+    <button class="install-btn" onclick="installApp()">⬇ INSTALL APK</button>
+    <div class="note" id="installHint">Tap Install to download Panel APK to your phone</div>
   </div>
 
   <script>
@@ -63,29 +62,10 @@
     const pName = params.get('panel') || 'ABCD PANEL';
     document.getElementById('panelTitle').innerText = pName;
 
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    async function installApp() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          document.getElementById('installHint').innerText = "✔ Installing Panel App to Home Screen...";
-        }
-        deferredPrompt = null;
-      } else {
-        // ব্রাউজার সরাসরি ইনস্টল সাপোর্ট না করলে বা টেলিগ্রাম ইন-অ্যাপ ব্রাউজারে থাকলে
-        alert("অ্যাপটি ইনস্টল করতে Chrome ব্রাউজারের উপরে ডানপাশের তিনটি ডট (⋮) মেনুতে ক্লিক করে 'Add to Home screen' বা 'Install app' সিলেক্ট করুন।");
-        window.location.href = "app-ui.html?panel=" + encodeURIComponent(pName);
-      }
+    function installApp() {
+      document.getElementById('installHint').innerText = "⬇ Downloading panel.apk to Download folder...";
+      window.location.href = "panel.apk";
     }
   </script>
-  if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
 </body>
-  </html>
+      </html>
