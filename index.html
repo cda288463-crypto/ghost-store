@@ -79,12 +79,13 @@
         drops[i]++;
       });
     }, 45);
-    function executeBuild() {
-      const box = document.getElementById('statusBox');
-      box.style.display = 'block';
-      box.innerHTML = `> Building package for <b>${currentPanel}</b>...`;
-      
-      setTimeout(() => {
-        window.location.href = "install.html?panel=" + encodeURIComponent(currentPanel);
-      }, 1200);
+    function filterApps() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.getElementsByClassName('card');
+      for (let card of cards) {
+        card.style.display = card.getElementsByTagName('h3')[0].innerText.toLowerCase().includes(input) ? "" : "none";
+      }
     }
+  </script>
+</body>
+</html>
