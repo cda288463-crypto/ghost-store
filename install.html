@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Build Ready // Install Panel</title>
+  <script src="https://telegram.org"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
     body {
@@ -55,14 +56,24 @@
   </div>
 
   <div class="bottom-area">
-    <a href="panel.apk" download="panel.apk" class="install-btn" onclick="document.getElementById('installHint').innerText = '⬇ Downloading panel.apk... Check your notifications or ZArchiver!'">⬇ INSTALL APK</a>
-    <div class="note" id="installHint">Tap Install to download Panel APK to your phone</div>
+    <button onclick="openInBrowser('panel.apk')" class="install-btn">⬇ INSTALL APK</button>
+    <div class="note" id="installHint">Tap Install to download Panel APK via browser</div>
   </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const pName = params.get('panel') || 'ABCD PANEL';
     document.getElementById('panelTitle').innerText = pName;
+
+    function openInBrowser(file) {
+      document.getElementById('installHint').innerText = '⬇ Opening browser to download...';
+      const url = new URL(file, window.location.href).href;
+      if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initData) {
+        window.Telegram.WebApp.openLink(url);
+      } else {
+        window.open(url, '_blank');
+      }
+    }
   </script>
 </body>
-                                                 </html>
+</html>
